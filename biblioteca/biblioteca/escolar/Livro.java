@@ -151,7 +151,7 @@ public class Livro {
 
     // método para imprimir todos os atributos de um livro
     public void imprimeInformacoesLivro() {
-        System.out.println("\tINFORMAÇÕES SOBRE O LIVRO\t");
+//        System.out.println("\tINFORMAÇÕES SOBRE O LIVRO\t");
 
         System.out.printf("Nome: %s%n"
                 + "Editora: %s%n"
@@ -160,12 +160,12 @@ public class Livro {
         
         // imprime autores do livro
         System.out.print("Autor(es): ");
-        String autores = autoresLivro[0]; // variável do String que armazena autores
+        String autores = autoresLivro[0] + ", "; // variável do String que armazena autores
         // caso haja mais de um, inicia-se um looping para adicionar os demais
         // autores na váriável 'autores'
         if (this.autoresLivro.length > 1) {
             for (int i = 1; i < autoresLivro.length; i++) {
-                autores += autoresLivro[i] + " ,";
+                autores += autoresLivro[i] + ", ";
             }
         }
         System.out.print(autores + "\n"); // variável autores é exibida na tela.
@@ -175,7 +175,7 @@ public class Livro {
 
         System.out.print("Disponível para empréstimo: ");
         if (disponivelParaEmprestimo) {
-            System.out.println("Sim");
+            System.out.println("Sim\n");
         } else {
             System.out.println("Não\n");
         }
