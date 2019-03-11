@@ -180,5 +180,13 @@ public class Livro {
             System.out.println("Não\n");
         }
     }
+    
+    public boolean equals(Livro livro) {
+        if(this.nomeLivro.equals(livro.getNomeLivro()) &&
+            this.codigoLivro.equals(livro.getCodigoLivro()))
+            return true;
+        
+        return false;
+    }
 
 }

@@ -12,6 +12,9 @@ package biblioteca.escolar;
 public class Biblioteca {
     private Usuario[] usuarios;
     private Livro[] livros;
+    
+    private static int contUsuarios = 0;
+    private static int contLivros = 0;
 
     public Biblioteca() {
         usuarios = new Usuario[30];
@@ -19,6 +22,18 @@ public class Biblioteca {
     }
     
     public boolean cadastrarLivro(String nome, String editora, String codigo, String[] autores, int paginas) {
+        boolean livroCadastrado = false,
+                temEspaco = false;
+        
+        Livro novoLivro = new Livro(nome, editora, codigo, autores, paginas);
+        
+        int i;
+        for(i = 0; !livroCadastrado && !temIgual && i < livros.length; i++) {
+            if(livros[i] != null)
+                if(livros[i].equals(novoLivro));
+                    temIgual = true;
+        }
+        
         return false;
     }
     

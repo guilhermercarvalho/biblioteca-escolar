@@ -36,15 +36,15 @@ public class TesteUsuario {
         System.out.println(u1.emprestraLivro(l4));
 
 //        u1.imprimeInformacoesUsuario();
-        System.out.println(u1.livrosEmprestados[0].getNomeLivro());
-        System.out.println(u1.livrosEmprestados[1].getNomeLivro());
-        System.out.println(u1.livrosEmprestados[2].getNomeLivro());
-
-        System.out.println(u1.devolveLivro(l1));
-
-        System.out.println(u1.livrosEmprestados[0].getNomeLivro());
-        System.out.println(u1.livrosEmprestados[1].getNomeLivro());
-        System.out.println(u1.livrosEmprestados[2].getNomeLivro());
+//        System.out.println(u1.livrosEmprestados[0].getNomeLivro());
+//        System.out.println(u1.livrosEmprestados[1].getNomeLivro());
+//        System.out.println(u1.livrosEmprestados[2].getNomeLivro());
+//
+//        System.out.println(u1.devolveLivro(l1));
+//
+//        System.out.println(u1.livrosEmprestados[0].getNomeLivro());
+//        System.out.println(u1.livrosEmprestados[1].getNomeLivro());
+//        System.out.println(u1.livrosEmprestados[2].getNomeLivro());
 
     }
 }
