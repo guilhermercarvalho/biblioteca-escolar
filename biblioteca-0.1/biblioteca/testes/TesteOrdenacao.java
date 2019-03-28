@@ -14,7 +14,7 @@ import biblioteca.utilidades.Ordenacao;
 public class TesteOrdenacao {
     public static void main(String[] args) {
 //        Object vetor[] = {6, null, 2, 3, null, 1, 5};
-        Object vetor[] = {"d", "a", "c", null, "b", "e", "g", "h", "f"};
+        String[] vetor = {"d", "a"};//, "c", "i", "b", "e", "g", "h", "f"};
 //        Object vetor[] = {'d', 'a', 'c', 'b', 'e', 'g', 'h', 'f'};
 //        Object vetor[] = {true, false};
 //        Object vetor[] = {'6', '2', '3', '1', '5'};
@@ -22,8 +22,13 @@ public class TesteOrdenacao {
         for(Object v : vetor) {
             System.out.println(v);
         }
+        
+        System.out.println("\n" + vetor.length);
 
-        Ordenacao.mergesort(vetor, 0, vetor.length-1);
+        if(Ordenacao.ordena(vetor, vetor.length))
+            System.out.println("TRUE");
+        else
+            System.out.println("FALSE");
         
         System.out.println("");
         

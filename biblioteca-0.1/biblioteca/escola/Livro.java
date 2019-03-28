@@ -1,4 +1,6 @@
-package biblioteca.escolar;
+package biblioteca.escola;
+
+import biblioteca.utilidades.Ordenacao;
 
 public class Livro {
 
@@ -14,12 +16,13 @@ public class Livro {
         this.nomeLivro = nome; // atribui nome à atributo nomeLivro
         this.editoraLivro = editora; // atribui editora à atributo editoraLivro
 
-        if (validaISBN(codigo)) { // verifica se código ISBN de treze dígitos é válido
+        if (codigo.length() == 13) { // verifica se código ISBN de treze dígitos é válido
             this.codigoLivro = codigo;
         }
 
         if (autores.length <= 3) { // verifica de se o número de autores do livro é menor que três
             this.autoresLivro = autores;
+            Ordenacao.ordena(autoresLivro, autoresLivro.length);
         }
 
         if (paginas > 0) { // verifica se o número de páginas é maior que zero
@@ -80,75 +83,65 @@ public class Livro {
     }
 
     // método para valida código ISBN de treze dígitos
-    private boolean validaISBN(String isbn) {
-        if (isbn == null) {
-            return false;
-        }
-
-        try {
-            int tot = 0;
-            for (int i = 0; i < 12; i++) {
-                int digito = Integer.parseInt(isbn.substring(i, i + 1));
-
-                if (i % 2 == 0) {
-                    tot += digito * 1;
-                } else {
-                    tot += digito * 3;
-                }
-            }
-
-            int verificador = 10 - (tot % 10);
-            if (verificador == 10) {
-                verificador = 0;
-            }
-
-            return verificador == Integer.parseInt(isbn.substring(12));
-        } catch (NumberFormatException msg) {
-            return false;
-        }
-    }
-
-    public static void main(String[] args) {
-        String[] aut = {"augusto", "gil", "mike"};
-
-        Livro t1 = new Livro("A", "editora", "978 - 85 - 333 - 0227 - 3", aut, 2);
-
-        System.out.println(t1.validateIsbn13("978-85-8057-014-S"));
-    }
-
-    public boolean validateIsbn13(String isbn) {
-        if (isbn == null) {
-            return false;
-        }
-
-        // remove any hyphens
-        isbn = isbn.replaceAll("-", "");
-
-        // must be a 13 digit ISBN
-        if (isbn.length() != 13) {
-            return false;
-        }
-
-        try {
-            int tot = 0;
-            for (int i = 0; i < 12; i++) {
-                int digit = Integer.parseInt(isbn.substring(i, i + 1));
-                tot += (i % 2 == 0) ? digit * 1 : digit * 3;
-            }
-
-            // checksum must be 0-9. If calculated as 10 then = 0
-            int checksum = 10 - (tot % 10);
-            if (checksum == 10) {
-                checksum = 0;
-            }
-
-            return checksum == Integer.parseInt(isbn.substring(12));
-        } catch (NumberFormatException nfe) {
-            // to catch invalid ISBNs that have non-numeric characters in them
-            return false;
-        }
-    }
-
+//    private boolean validaISBN(String isbn) {
+//        if (isbn == null) {
+//            return false;
+//        }
+//
+//        try {
+//            int tot = 0;
+//            for (int i = 0; i < 12; i++) {
+//                int digito = Integer.parseInt(isbn.substring(i, i + 1));
+//
+//                if (i % 2 == 0) {
+//                    tot += digito * 1;
+//                } else {
+//                    tot += digito * 3;
+//                }
+//            }
+//
+//            int verificador = 10 - (tot % 10);
+//            if (verificador == 10) {
+//                verificador = 0;
+//            }
+//
+//            return verificador == Integer.parseInt(isbn.substring(12));
+//        } catch (NumberFormatException msg) {
+//            return false;
+//        }
+//    }
+//    public boolean validateIsbn13(String isbn) {
+//        if (isbn == null) {
+//            return false;
+//        }
+//
+//        // remove any hyphens
+//        isbn = isbn.replaceAll("-", "");
+//
+//        // must be a 13 digit ISBN
+//        if (isbn.length() != 13) {
+//            return false;
+//        }
+//
+//        try {
+//            int tot = 0;
+//            for (int i = 0; i < 12; i++) {
+//                int digit = Integer.parseInt(isbn.substring(i, i + 1));
+//                tot += (i % 2 == 0) ? digit * 1 : digit * 3;
+//            }
+//
+//            // checksum must be 0-9. If calculated as 10 then = 0
+//            int checksum = 10 - (tot % 10);
+//            if (checksum == 10) {
+//                checksum = 0;
+//            }
+//
+//            return checksum == Integer.parseInt(isbn.substring(12));
+//        } catch (NumberFormatException nfe) {
+//            // to catch invalid ISBNs that have non-numeric characters in them
+//            return false;
+//        }
+//    }
     // método para imprimir todos os atributos de um livro
     public void imprimeInformacoesLivro() {
 //        System.out.println("\tINFORMAÇÕES SOBRE O LIVRO\t");
@@ -157,7 +150,7 @@ public class Livro {
                 + "Editora: %s%n"
                 + "Código ISBN13: %s%n",
                 this.nomeLivro, this.editoraLivro, this.codigoLivro);
-        
+
         // imprime autores do livro
         System.out.print("Autor(es): ");
         String autores = autoresLivro[0] + ", "; // variável do String que armazena autores
@@ -165,9 +158,12 @@ public class Livro {
         // autores na váriável 'autores'
         if (this.autoresLivro.length > 1) {
             for (int i = 1; i < autoresLivro.length; i++) {
-                autores += autoresLivro[i] + ", ";
+                if (autoresLivro[i] != null) {
+                    autores += autoresLivro[i] + ", ";
+                }
             }
         }
+        autores = autores.substring(0, autores.length() - 1);
         System.out.print(autores + "\n"); // variável autores é exibida na tela.
         autores = null;
 
@@ -180,13 +176,18 @@ public class Livro {
             System.out.println("Não\n");
         }
     }
-    
+
     public boolean equals(Livro livro) {
-        if(this.nomeLivro.equals(livro.getNomeLivro()) &&
-            this.codigoLivro.equals(livro.getCodigoLivro()))
+        if (this.nomeLivro.equalsIgnoreCase(livro.getNomeLivro())
+                && this.codigoLivro.equalsIgnoreCase(livro.getCodigoLivro())) {
             return true;
-        
+        }
+
         return false;
     }
 
+    @Override
+    public String toString() {
+        return this.nomeLivro;
+    }
 }

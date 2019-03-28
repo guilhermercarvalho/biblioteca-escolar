@@ -6,7 +6,15 @@ package biblioteca.utilidades;
  */
 public class Ordenacao {
 
-    public static void mergesort(Object[] a, int ini, int fim) {
+    public static boolean ordena(Object[] a, int posVal) {
+        if (a.length  < 2 || a == null)
+            return false;
+
+        mergesort(a, 0, posVal-1);
+        return true;
+    }
+
+    private static void mergesort(Object[] a, int ini, int fim) {
         if (ini < fim) {
             int meio = (ini + fim) / 2;
             mergesort(a, ini, meio);
@@ -15,14 +23,11 @@ public class Ordenacao {
         }
     }
 
-    public static void intercala(Object[] a, int ini, int meio, int fim) {
-        Comparable[] b = new Comparable[a.length];
+    private static void intercala(Object[] a, int ini, int meio, int fim) {
+        Object[] b = new Object[a.length];
 
         for (int i = ini; i <= fim; i++) {
-            if (a[i] == null) {
-                a[i] = (Object) Integer.MAX_VALUE;
-            }
-            b[i] = (Comparable) a[i];
+            b[i] = a[i];
         }
 
         int i = ini,
@@ -30,7 +35,7 @@ public class Ordenacao {
                 k = ini;
 
         while (i <= meio && j <= fim) {
-            if (b[i].compareTo(b[j]) <= 0) {
+            if (b[i].toString().compareTo(b[j].toString()) <= 0) {
                 a[k++] = b[i++];
             } else {
                 a[k++] = b[j++];
@@ -40,5 +45,7 @@ public class Ordenacao {
         while (i <= meio) {
             a[k++] = b[i++];
         }
+        
+        b = null;
     }
 }
