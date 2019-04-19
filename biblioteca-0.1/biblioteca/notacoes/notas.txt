@@ -1,1 +1,6 @@
 prinf imprimir vetor de Strings
+
+Corrigir
+receber valores nulos como parâmetros.
+vetor de autores nulo
+msg de erro para ativação e desativação de usuários

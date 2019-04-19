@@ -2,6 +2,11 @@ package biblioteca.escola;
 
 import biblioteca.utilidades.Ordenacao;
 
+/**
+ * 
+ * @author Guilherme R. de Carvalho <guilhermercarvalho512 at gmail.com>
+ * @version 0.1
+ */
 public class Livro {
 
     private String nomeLivro; // variável de instância
@@ -13,26 +18,24 @@ public class Livro {
 
     // Construtor de Livro que recebe cinco parâmetros
     public Livro(String nome, String editora, String codigo, String[] autores, int paginas) {
-        this.nomeLivro = nome; // atribui nome à atributo nomeLivro
-        this.editoraLivro = editora; // atribui editora à atributo editoraLivro
+        this.nomeLivro = nome;
+        this.editoraLivro = editora;
 
         if (codigo.length() == 13) { // verifica se código ISBN de treze dígitos é válido
             this.codigoLivro = codigo;
         }
 
-        if (autores.length <= 3) { // verifica de se o número de autores do livro é menor que três
-            this.autoresLivro = autores;
-            Ordenacao.ordena(autoresLivro, autoresLivro.length);
-        }
+        this.autoresLivro = autores;
+        Ordenacao.ordena(autoresLivro, autoresLivro.length); // ordena vetor de autores em ordem alfabética
 
         if (paginas > 0) { // verifica se o número de páginas é maior que zero
             this.numeroPaginas = paginas;
         }
 
         // atribui true à disponível para empréstimo, indicando que
-        // sempre que um livro for cadastrado eles estará inicialmente disponível
+        // sempre um novo livro cadastrado estará inicialmente disponível
         this.disponivelParaEmprestimo = true;
-    }
+    } // fim do método construtor
 
     public String getNomeLivro() {
         return nomeLivro;
@@ -83,79 +86,46 @@ public class Livro {
     }
 
     // método para valida código ISBN de treze dígitos
-//    private boolean validaISBN(String isbn) {
-//        if (isbn == null) {
-//            return false;
-//        }
-//
-//        try {
-//            int tot = 0;
-//            for (int i = 0; i < 12; i++) {
-//                int digito = Integer.parseInt(isbn.substring(i, i + 1));
-//
-//                if (i % 2 == 0) {
-//                    tot += digito * 1;
-//                } else {
-//                    tot += digito * 3;
-//                }
-//            }
-//
-//            int verificador = 10 - (tot % 10);
-//            if (verificador == 10) {
-//                verificador = 0;
-//            }
-//
-//            return verificador == Integer.parseInt(isbn.substring(12));
-//        } catch (NumberFormatException msg) {
-//            return false;
-//        }
-//    }
-//    public boolean validateIsbn13(String isbn) {
-//        if (isbn == null) {
-//            return false;
-//        }
-//
-//        // remove any hyphens
-//        isbn = isbn.replaceAll("-", "");
-//
-//        // must be a 13 digit ISBN
-//        if (isbn.length() != 13) {
-//            return false;
-//        }
-//
-//        try {
-//            int tot = 0;
-//            for (int i = 0; i < 12; i++) {
-//                int digit = Integer.parseInt(isbn.substring(i, i + 1));
-//                tot += (i % 2 == 0) ? digit * 1 : digit * 3;
-//            }
-//
-//            // checksum must be 0-9. If calculated as 10 then = 0
-//            int checksum = 10 - (tot % 10);
-//            if (checksum == 10) {
-//                checksum = 0;
-//            }
-//
-//            return checksum == Integer.parseInt(isbn.substring(12));
-//        } catch (NumberFormatException nfe) {
-//            // to catch invalid ISBNs that have non-numeric characters in them
-//            return false;
-//        }
-//    }
+    private boolean validaISBN(String isbn) {
+        if (isbn == null) {
+            return false;
+        }
+
+        try {
+            int tot = 0;
+            for (int i = 0; i < 12; i++) {
+                int digito = Integer.parseInt(isbn.substring(i, i + 1));
+
+                if (i % 2 == 0) {
+                    tot += digito * 1;
+                } else {
+                    tot += digito * 3;
+                }
+            }
+
+            int verificador = 10 - (tot % 10);
+            if (verificador == 10) {
+                verificador = 0;
+            }
+
+            return verificador == Integer.parseInt(isbn.substring(12));
+        } catch (NumberFormatException msg) {
+            return false;
+        }
+    } // fim método validaISBN
+
     // método para imprimir todos os atributos de um livro
     public void imprimeInformacoesLivro() {
-//        System.out.println("\tINFORMAÇÕES SOBRE O LIVRO\t");
-
-        System.out.printf("Nome: %s%n"
-                + "Editora: %s%n"
-                + "Código ISBN13: %s%n",
-                this.nomeLivro, this.editoraLivro, this.codigoLivro);
+        System.out.println("Nome: " + this.nomeLivro);
+        System.out.println("Editora: " + this.editoraLivro);
+        System.out.println("Código ISBN13: " + this.codigoLivro);
 
         // imprime autores do livro
         System.out.print("Autor(es): ");
-        String autores = autoresLivro[0] + ", "; // variável do String que armazena autores
-        // caso haja mais de um, inicia-se um looping para adicionar os demais
-        // autores na váriável 'autores'
+        String autores = autoresLivro[0] + ", "; // variável String que armazena autores
+        // caso haja mais de um, inicia-se um for para adicionar os demais
+        // autores na String 'autores'
+
         if (this.autoresLivro.length > 1) {
             for (int i = 1; i < autoresLivro.length; i++) {
                 if (autoresLivro[i] != null) {
@@ -163,31 +133,34 @@ public class Livro {
                 }
             }
         }
-        autores = autores.substring(0, autores.length() - 1);
-        System.out.print(autores + "\n"); // variável autores é exibida na tela.
-        autores = null;
+        autores = autores.substring(0, autores.length()-2); // remove última vírgula da String
 
-        System.out.printf("Páginas: %s%n", numeroPaginas);
+        System.out.println(autores); // exibe nome dos autores
+        autores = null; // após exibida String é explicitamente apagada
+
+        System.out.printf("Páginas: %03d%n", numeroPaginas);
 
         System.out.print("Disponível para empréstimo: ");
         if (disponivelParaEmprestimo) {
-            System.out.println("Sim\n");
+            System.out.println("Sim");
         } else {
-            System.out.println("Não\n");
+            System.out.println("Não");
         }
-    }
+    } // fim método imprimeInformacoesLivro
 
-    public boolean equals(Livro livro) {
-        if (this.nomeLivro.equalsIgnoreCase(livro.getNomeLivro())
-                && this.codigoLivro.equalsIgnoreCase(livro.getCodigoLivro())) {
-            return true;
-        }
-
-        return false;
-    }
+    public boolean ehIgual(Livro livro) {
+        // compara atributos específicos dos livros
+        return this.codigoLivro.equals(livro.getCodigoLivro())
+                && this.nomeLivro.equalsIgnoreCase(livro.getNomeLivro());
+    } // fim método ehIgual
+    
+    public boolean ehIgual(String codigo) {
+        // compara atributos específicos dos livros
+        return this.codigoLivro.equals(codigo);
+    } // fim método ehIgual
 
     @Override
-    public String toString() {
+    public String toString() { // converte objeto livro em uma string para realizar comparação
         return this.nomeLivro;
-    }
+    } // fim método toString
 }

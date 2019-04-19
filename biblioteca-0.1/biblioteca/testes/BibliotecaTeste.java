@@ -18,17 +18,19 @@ public class BibliotecaTeste {
     private static Biblioteca biblioteca = new Biblioteca();
 
     public static void main(String[] args) {
-        
-        inicializaBiblioteca();
+
         // Programa para testar funcionamento dos métodos.
+        inicializaBiblioteca();
+
+        // atributos para criação dos livros
         String nomeLivro = null, editoraLivro = null, codigoISBN = null;
         int numAutores, paginas = 0;
         String[] vetorAutores = null;
-        
+
+        // atributos para criação dos usuários
         String nomeUsuario = null, cpf = null, endereco = null, telefone = null;
 
-        boolean continuar = true;
-
+        boolean continuar = true; // varável de execução do menu
         do {
 
             printMenu();
@@ -104,7 +106,6 @@ public class BibliotecaTeste {
                     System.out.println("Valor inválido!");
                     break;
             }
-
         } while (continuar);
     }
 
@@ -119,7 +120,6 @@ public class BibliotecaTeste {
         System.out.println("(7) Realizar empréstimo de um livro.");
         System.out.println("(8) Realizar a devolução de um livro.");
         System.out.println("(0) Sair do programa.");
-        System.out.println();
     }
 
     private static boolean adicionaLivro(String nomeLivro, String editoraLivro, String codigoISBN, String[] vetorAutores, int paginas) {
@@ -133,11 +133,12 @@ public class BibliotecaTeste {
 
         System.out.print("Digite o código ISBN do livro. Deve conter treze caracteres: \n");
         codigoISBN = teclado.next();
+        teclado.nextLine();
         while (codigoISBN.length() != 13) {
             System.out.print("Por favor, digite um valor válido: ");
             codigoISBN = teclado.next();
+            teclado.nextLine();
         }
-        teclado.nextLine();
 
         System.out.print("Digite o nome dos autores do livro: ");
 
@@ -150,6 +151,7 @@ public class BibliotecaTeste {
 
                 System.out.println("Deseja adicionar mais autores? TRUE/FALSE");
                 adicionar = teclado.nextBoolean();
+                teclado.nextLine();
             }
 
             if (adicionar) {
@@ -160,11 +162,12 @@ public class BibliotecaTeste {
 
         System.out.print("Digite o número de páginas do livro. Deve ser maior do que zero: \n");
         paginas = teclado.nextInt();
+        teclado.nextLine();
         while (paginas <= 0) {
             System.out.print("Por favor, digite um valor válido: ");
             paginas = teclado.nextInt();
+            teclado.nextLine();
         }
-        teclado.nextLine();
         return true;
     }
 
@@ -189,23 +192,22 @@ public class BibliotecaTeste {
     }
 
     private static void inicializaBiblioteca() {
-        
-        String[] autores = {"C", "A", "B"};
-        
-        biblioteca.cadastrarLivro("ccc", "DDD", "1234567890123", autores, 1);
-        biblioteca.cadastrarLivro("aaa", "RRR", "123456789nnkd", autores, 100);
-        biblioteca.cadastrarLivro("bbb", "EEE", "1234567890133", autores, 10);
-        biblioteca.cadastrarLivro("hhh", "EEE", "12317el890123", autores, 10);
-        biblioteca.cadastrarLivro("fff", "TTT", "zaxscdvfbgnhm", autores, 1000);
-        biblioteca.cadastrarLivro("eee", "RRR", "azsxdcfv34tnj", autores, 100);
-        biblioteca.cadastrarLivro("ggg", "ASDA", "qwertyuiopasd", autores, 371);
-        biblioteca.cadastrarLivro("ddd", "DDD", "12345678kwo23", autores, 1);
 
+        String[] autores = {"Autor C", "Autor A", "Autor B"};
 
-        biblioteca.cadastrarUsuario("bbb", "1q2w3e4r5t6", "endereco", "telefone");
-        biblioteca.cadastrarUsuario("ccc", "1q2w3wrr5t6", "endereco", "telefone");
-        biblioteca.cadastrarUsuario("aaa", "1q2wjo4r5t6", "endereco", "telefone");
-        biblioteca.cadastrarUsuario("eee", "1238", "telefone", "endereco");
-        biblioteca.cadastrarUsuario("ddd", "qwertyuiop", "endereco", "telefone");
+        biblioteca.cadastrarLivro("Livro C", "Editora XPTO", "1234567890123", autores, 1);
+        biblioteca.cadastrarLivro("Livro A", "Editora XPTO", "1234567890111", autores, 100);
+        biblioteca.cadastrarLivro("Livro B", "Editora XPTO", "1234567890222", autores, 10);
+        biblioteca.cadastrarLivro("Livro H", "Editora XPTO", "1234567890333", autores, 10);
+        biblioteca.cadastrarLivro("Livro D", "Editora XPTO", "1234567890444", autores, 1000);
+        biblioteca.cadastrarLivro("Livro E", "Editora XPTO", "1234567890555", autores, 100);
+        biblioteca.cadastrarLivro("Livro G", "Editora XPTO", "1234567890666", autores, 371);
+        biblioteca.cadastrarLivro("Livro F", "Editora XPTO", "1234567890777", autores, 1);
+
+        biblioteca.cadastrarUsuario("Carlos Nobrega", "123", "Endereço XPTO", "Telefone XPTO");
+        biblioteca.cadastrarUsuario("Arthur César", "1234", "Endereço XPTO", "Telefone XPTO");
+        biblioteca.cadastrarUsuario("Júliano Henrique", "12345", "Endereço XPTO", "Telefone XPTO");
+        biblioteca.cadastrarUsuario("Alberto Marquês", "123456", "Endereço XPTO", "Telefone XPTO");
+        biblioteca.cadastrarUsuario("Leandro Pereira", "1234567", "Endereço XPTO", "Telefone XPTO");
     }
 }
